@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
-import {Satalite} from '/Satalite.js';
+import {Satalite} from './Satalite.js';
 
 /**
  * Provides requestAnimationFrame in a cross browser way.
@@ -65,7 +65,7 @@ if (!window.requestAnimationFrame) {
 
               const loader = new GLTFLoader();
 
-              var earthData  = await loader.loadAsync('/assets/scene.gltf');
+              var earthData  = await loader.loadAsync('./assets/scene.gltf');
               //console.log(earthData);
               earthData = setupModel(earthData);
               //console.log(earthData);
@@ -109,13 +109,13 @@ if (!window.requestAnimationFrame) {
 
                 var geometry = new THREE.SphereGeometry( 50, 32, 16);
                 //var material = new THREE.MeshBasicMaterial( { color: "#166294" } );
-                const texture = new THREE.TextureLoader().load( '/assets/textures/Earth.002_diffuse.jpeg' );
+                const texture = new THREE.TextureLoader().load( './assets/textures/Earth.002_diffuse.jpeg' );
                 const material = new THREE.MeshBasicMaterial( { map: texture } );
                 sphere = new THREE.Mesh( geometry, material );
                 sphere.name = 'Earth'
                 //log calcrow
 
-                var city_list = await fetch("/assets/json/sample.json")
+                var city_list = await fetch("./assets/json/sample.json")
                   .then(response => {
                      return response.json();
                   })
@@ -139,6 +139,7 @@ if (!window.requestAnimationFrame) {
                 plane = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ) );
                 //plane.rotation.x = - 90 * ( Math.PI / 180 );
                 plane.overdraw = true;
+
             }
 
             function onDocumentMouseDown( event ) {
@@ -193,7 +194,8 @@ if (!window.requestAnimationFrame) {
                         // if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
                         INTERSECTED = intersects[0].object;
                         // INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                        console.log(intersects);
+                        console.log(intersects[0].name);
+                        document.querySelector(".target").innerHTML = intersects[0].name;
                     }
                 }
                 renderer.render( scene, camera );

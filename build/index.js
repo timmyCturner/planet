@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
-import {Satalite} from '/Satalite.js';
+import {Satalite} from './Satalite.js';
 
 /**
  * Provides requestAnimationFrame in a cross browser way.
@@ -139,6 +139,7 @@ if (!window.requestAnimationFrame) {
                 plane = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ) );
                 //plane.rotation.x = - 90 * ( Math.PI / 180 );
                 plane.overdraw = true;
+
             }
 
             function onDocumentMouseDown( event ) {
@@ -193,7 +194,8 @@ if (!window.requestAnimationFrame) {
                         // if ( INTERSECTED ) INTERSECTED.material.emissive.setHex( INTERSECTED.currentHex );
                         INTERSECTED = intersects[0].object;
                         // INTERSECTED.currentHex = INTERSECTED.material.emissive.getHex();
-                        console.log(intersects);
+                        console.log(intersects[0].name);
+                        document.querySelector(".target").innerHTML = intersects[0].name;
                     }
                 }
                 renderer.render( scene, camera );
