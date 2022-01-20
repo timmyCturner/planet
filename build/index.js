@@ -65,7 +65,7 @@ if (!window.requestAnimationFrame) {
 
               const loader = new GLTFLoader();
 
-              var earthData  = await loader.loadAsync('/assets/scene.gltf');
+              var earthData  = await loader.loadAsync('./assets/scene.gltf');
               //console.log(earthData);
               earthData = setupModel(earthData);
               //console.log(earthData);
@@ -109,13 +109,13 @@ if (!window.requestAnimationFrame) {
 
                 var geometry = new THREE.SphereGeometry( 50, 32, 16);
                 //var material = new THREE.MeshBasicMaterial( { color: "#166294" } );
-                const texture = new THREE.TextureLoader().load( '/assets/textures/Earth.002_diffuse.jpeg' );
+                const texture = new THREE.TextureLoader().load( './assets/textures/Earth.002_diffuse.jpeg' );
                 const material = new THREE.MeshBasicMaterial( { map: texture } );
                 sphere = new THREE.Mesh( geometry, material );
                 sphere.name = 'Earth'
                 //log calcrow
 
-                var city_list = await fetch("/assets/json/sample.json")
+                var city_list = await fetch("./assets/json/sample.json")
                   .then(response => {
                      return response.json();
                   })
