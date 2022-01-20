@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
 import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
-import {Satalite} from '/Satalite.js';
+import {Satalite} from '/satalite.js';
 
 /**
  * Provides requestAnimationFrame in a cross browser way.
