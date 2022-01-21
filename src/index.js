@@ -1,7 +1,7 @@
 
-import * as THREE from "three";
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
-import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
+// import * as THREE from "three";
+// import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
+// import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
 
 class Satalite {
 
@@ -125,17 +125,15 @@ if (!window.requestAnimationFrame) {
             document.addEventListener( 'mousewheel', (event) => {
               camera.position.z +=event.deltaY/50;
             });
-            await init();
-
-            animate();
+            init().then(response=>{animate()})
 
 
             async function loadWorld() {
 
 
               const loader = new GLTFLoader();
-
-              var earthData  = await loader.loadAsync('/assets/scene.gltf');
+              var earthData;
+              loader.loadAsync('/assets/scene.gltf').then((data)=>{earthData = data});
               //console.log(earthData);
               earthData = setupModel(earthData);
               //console.log(earthData);
@@ -184,31 +182,38 @@ if (!window.requestAnimationFrame) {
                 sphere = new THREE.Mesh( geometry, material );
                 sphere.name = 'Earth'
                 //log calcrow
+                var city_list;
 
-                var city_list = await fetch("/assets/json/sample.json")
-                  .then(response => {
-                     return response.json();
-                  })
-                  dictionary =[];
-                  for (var i=0; i<100; i++) {
-                    var temp_satalite = new Satalite();
-                    temp_satalite.SatByCart(city_list[i].x, -1*city_list[i].y, city_list[i].z);
-                    temp_satalite.satalite.name = city_list[i].city;
-                    scene.add( temp_satalite.satalite );
+                // fetch('/assets/json/sample.json')
+                // fetch('http://example.com/movies.json')
+                // .then(response => response.json())
+                // .then(data => console.log(data))
+                // .then(function(){
+                //   var temp = data
+                //   console.log(temp);
+                //   city_list = temp
+                //   console.log(city_list);
+                //
+                //   dictionary =[];
+                //   for (var i=0; i<100; i++) {
+                //     var temp_satalite = new Satalite();
+                //     temp_satalite.SatByCart(city_list[i].x, -1*city_list[i].y, city_list[i].z);
+                //     temp_satalite.satalite.name = city_list[i].city;
+                //     scene.add( temp_satalite.satalite );
+                //
+                //     //temp_satalite.statlite.on('click',function(ev) {});
+                //     //console.log(temp_satalite.satalite);
+                //   }
+                // })
+              controls.addEventListener( 'change', render);
+              scene.add( sphere );
 
-                    //temp_satalite.statlite.on('click',function(ev) {});
-                    //console.log(temp_satalite.satalite);
-                  }
-
-                controls.addEventListener( 'change', render);
-                scene.add( sphere );
 
 
 
-
-                plane = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ) );
-                //plane.rotation.x = - 90 * ( Math.PI / 180 );
-                plane.overdraw = true;
+              plane = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ) );
+              //plane.rotation.x = - 90 * ( Math.PI / 180 );
+              plane.overdraw = true;
             }
 
             function onDocumentMouseDown( event ) {
