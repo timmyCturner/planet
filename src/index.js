@@ -1,22 +1,23 @@
 
-// import * as THREE from "three";
-// import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
-// import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
+import {SphereGeometry, MeshBasicMaterial, Raycaster, WebGLRenderer, Vector2,
+   Mesh, Color,  Scene,PerspectiveCamera,TextureLoader,PlaneGeometry} from "three";
+import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
+import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
 
 class Satalite {
 
 
   constructor(){
-    var geometry = new THREE.SphereGeometry( 1, 32, 16);
+    var geometry = new SphereGeometry( 1, 32, 16);
     colorRandom();
-    var material = new THREE.MeshBasicMaterial( { color: colorRandom() } );
+    var material = new MeshBasicMaterial( { color: colorRandom() } );
     // enable transparency
     material.transparent = true;
     // set opacity to 50%
     material.opacity = 0.5;
     //const texture = new THREE.TextureLoader().load( '/assets/textures/Earth.002_diffuse.jpeg' );
     //const material = new THREE.MeshBasicMaterial( { map: texture } );
-    this.satalite = new THREE.Mesh( geometry, material );
+    this.satalite = new Mesh( geometry, material );
     this.satalite.position.x = 50;
     this.satalite.position.y = 0;
     this.satalite.position.z = 0;
@@ -99,7 +100,7 @@ if (!window.requestAnimationFrame) {
    var container, stats;
 
             var camera, scene, renderer, controls, raycaster
-            var mouse = new THREE.Vector2(),
+            var mouse = new Vector2(),
                 INTERSECTED;
             var dictionary;
             var sphere, earth, salatites, plane;
@@ -145,8 +146,8 @@ if (!window.requestAnimationFrame) {
                 container = document.createElement( 'div' );
                 document.body.appendChild( container );
 
-                raycaster = new THREE.Raycaster();
-                renderer = new THREE.WebGLRenderer({
+                raycaster = new Raycaster();
+                renderer = new WebGLRenderer({
                     antialias: true
                 });
 
@@ -158,10 +159,10 @@ if (!window.requestAnimationFrame) {
                 container.appendChild( renderer.domElement );
                 document.addEventListener( 'mousedown', onDocumentMouseDown, false );
 
-                scene = new THREE.Scene();
-                scene.background = new THREE.Color( 0x00cccc );
+                scene = new Scene();
+                scene.background = new Color( 0x00cccc );
 
-                camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+                camera = new PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
                 //console.log(camera);
                 camera.position.y = 0;
                 camera.position.z = 100;
@@ -175,11 +176,11 @@ if (!window.requestAnimationFrame) {
 
                 scene.add( camera );
 
-                var geometry = new THREE.SphereGeometry( 50, 32, 16);
+                var geometry = new SphereGeometry( 50, 32, 16);
                 //var material = new THREE.MeshBasicMaterial( { color: "#166294" } );
-                const texture = new THREE.TextureLoader().load( '/assets/textures/Earth.002_diffuse.jpeg' );
-                const material = new THREE.MeshBasicMaterial( { map: texture } );
-                sphere = new THREE.Mesh( geometry, material );
+                const texture = new TextureLoader().load( '/assets/textures/Earth.002_diffuse.jpeg' );
+                const material = new MeshBasicMaterial( { map: texture } );
+                sphere = new Mesh( geometry, material );
                 sphere.name = 'Earth'
                 //log calcrow
                 var city_list;
@@ -211,7 +212,7 @@ if (!window.requestAnimationFrame) {
 
 
 
-              plane = new THREE.Mesh( new THREE.PlaneGeometry( 200, 200 ), new THREE.MeshBasicMaterial( { color: 0xe0e0e0 } ) );
+              plane = new Mesh( new PlaneGeometry( 200, 200 ), new MeshBasicMaterial( { color: 0xe0e0e0 } ) );
               //plane.rotation.x = - 90 * ( Math.PI / 180 );
               plane.overdraw = true;
             }
