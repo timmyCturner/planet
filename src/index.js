@@ -1,8 +1,8 @@
 
 import {SphereGeometry, MeshBasicMaterial, Raycaster, WebGLRenderer, Vector2,
    Mesh, Color,  Scene,PerspectiveCamera,TextureLoader,PlaneGeometry} from "three";
-import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/loaders/GLTFLoader.js';
-import {OrbitControls} from "https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/OrbitControls.js";
+ import { GLTFLoader } from '/jsm/loaders/GLTFLoader.js';
+ import {OrbitControls} from "/jsm/controls/OrbitControls.js";
 
 class Satalite {
 
